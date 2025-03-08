@@ -1,0 +1,23 @@
+syntax = "v1"
+
+info(
+	title: "订单 BFF"
+	desc: "dtm分布式事务 下单、扣减库存"
+)
+
+type (
+	OrderCreateReq {
+		UserID  int64 `json:"user_id"`
+		GoodsID int64 `json:"goods_id"`
+		Num     int64 `json:"num"`
+	}
+
+	OrderCreateResp {
+	}
+)
+
+service order {
+	@doc "创建订单"
+	@handler create
+	post /order/create (OrderCreateReq) returns (OrderCreateResp)
+}

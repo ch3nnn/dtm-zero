@@ -1,0 +1,17 @@
+Name: stock.rpc
+ListenOn: 0.0.0.0:9090
+Etcd:
+  Hosts:
+  - 127.0.0.1:2379
+  Key: stock.rpc
+
+MysqlDBConf:
+  Type: mysql # mysql or postgres
+  Host: localhost
+  Port: 3306
+  DBName: dtm_zero
+  Username: root
+  Password: "123456"
+  MaxOpenConn: 100
+  SSLMode: disable # disable or require
+  CacheTime: 5

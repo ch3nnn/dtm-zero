@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option go_package = "./pb";
+
+package order;
+
+message CreateReq {
+    int64 goods_id = 1; // 商品 id
+    int64 user_id  = 2; // 用户 id
+    int64 num      = 3; // 购买数量
+}
+message CreateResp {
+}
+
+// service
+service Order {
+    // 创建订单
+    rpc Create(CreateReq) returns (CreateResp);
+    // 创建订单回滚
+    rpc CreateRollback(CreateReq) returns (CreateResp);
+}

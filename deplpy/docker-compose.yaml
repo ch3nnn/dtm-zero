@@ -1,0 +1,58 @@
+version: '3'
+
+services:
+
+  etcd:
+    container_name: dtm-zero-etcd
+    image: bitnami/etcd:3.4.15
+    environment:
+      - ALLOW_NONE_AUTHENTICATION=yes
+      - ETCD_ADVERTISE_CLIENT_URLS=http://0.0.0.0:2379
+    ports:
+      - "2379:2379"
+    networks:
+      - dtm-zero
+
+  dtm:
+    container_name: dtm-zero-dtm
+    image: yedf/dtm:1.19.0
+    environment:
+      STORE_DRIVER: mysql
+      STORE_HOST: dtm-zero-db
+      STORE_USER: root
+      STORE_PASSWORD: '123456'
+      STORE_PORT: 3306
+      MICRO_SERVICE_DRIVER: dtm-driver-gozero # name of the driver to handle register/discover
+      MICRO_SERVICE_TARGET: etcd://dtm-zero-etcd:2379/dtmservice # register dtm server to this url
+      MICRO_SERVICE_END_POINT: 127.0.0.1:36790
+    ports:
+      - '36789:36789'
+      - '36790:36790'
+    networks:
+      - dtm-zero
+
+  db:
+    container_name: dtm-zero-db
+    image: mysql:8.2.0
+    restart: always
+    environment:
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_unicode_ci
+      MYSQL_ROOT_PASSWORD: 123456
+      LANG: C.UTF-8
+      TZ: Asia/Shanghai
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - dtm-zero
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u", "root", "--password=123456" ]
+      interval: 30s
+      timeout: 2s
+      retries: 3
+
+networks:
+  dtm-zero:
+    driver: bridge

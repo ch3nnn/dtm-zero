@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = "./pb";
+
+package stock;
+
+message DeductReq {
+    int64 goods_id = 1; // 商品 id
+    int64 num      = 2; // 扣减数量
+}
+message DeductResp {
+}
+
+service Stock {
+    // 扣减库存
+    rpc Deduct(DeductReq) returns (DeductResp);
+    // 扣减库存回滚
+    rpc DeductRollback(DeductReq) returns (DeductResp);
+}
