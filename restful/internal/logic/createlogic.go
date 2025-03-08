@@ -16,9 +16,6 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-// dtm已经通过配置，注册到下面这个地址，因此在dtmgrpc中使用该地址
-var dtmServer = "etcd://127.0.0.1:2379/dtmservice"
-
 type CreateLogic struct {
 	logx.Logger
 	ctx    context.Context
@@ -50,8 +47,14 @@ func (l *CreateLogic) Create(req *types.OrderCreateReq) (resp *types.OrderCreate
 		return nil, fmt.Errorf("下单异常超时")
 	}
 
+	// 获取DTM服务地址
+	dtmRpcTarget, err := l.svcCtx.Config.DTMRpcConf.BuildTarget()
+	if err != nil {
+		return nil, fmt.Errorf("下单异常超时")
+	}
+
 	// 创建一个saga事务
-	m := dtmgrpc.NewSagaGrpc(dtmServer, dtmgrpc.MustGenGid(dtmServer)).
+	m := dtmgrpc.NewSagaGrpc(dtmRpcTarget, dtmgrpc.MustGenGid(dtmRpcTarget)).
 		// 添加订单服务
 		Add(
 			orderRpcTarget+orderpb.Order_Create_FullMethodName,         // 创建订单

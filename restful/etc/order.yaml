@@ -15,3 +15,10 @@ StockRpcConf:
     Hosts:
       - 192.168.88.241:2379
     Key: stock.rpc
+
+
+DTMRpcConf:
+  Etcd:
+    Hosts:
+      - 192.168.88.241:2379
+    Key: dtmservice

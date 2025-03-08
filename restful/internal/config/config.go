@@ -10,4 +10,5 @@ type Config struct {
 
 	OrderRpcConf zrpc.RpcClientConf
 	StockRpcConf zrpc.RpcClientConf
+	DTMRpcConf   zrpc.RpcClientConf
 }

@@ -80,7 +80,9 @@
 
 
 ## 四、参考
-1. [dtm-labs/dtm-examples](https://github.com/dtm-labs/dtm-examples)
-2. [gozerodtm](https://github.com/Mikaelemmmm/gozerodtm)
-3. [dtm文档go-zero支持](https://dtm.pub/ref/gozero.html)
-4. [gorm](https://gorm.io/zh_CN/docs/)
+- [dtm-labs/dtm-examples](https://github.com/dtm-labs/dtm-examples)
+- [gozerodtm](https://github.com/Mikaelemmmm/gozerodtm)
+- [gorm](https://gorm.io/zh_CN/docs/)
+- [dtm-异常与子事务屏障](https://dtm.pub/practice/barrier.html)
+- [dtm-gozero支持](https://dtm.pub/ref/gozero.html)
+- [订单系统 dtm-解决方案](https://www.dtm.pub/app/order.html#dtm-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88)
