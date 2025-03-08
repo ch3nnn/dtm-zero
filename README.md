@@ -20,3 +20,67 @@
     ├── order  // 订单服务
     └── stock  // 库存服务
 ```
+## 三、快速开始
+1. docker-compose 运行 dtm、etcd、mysql
+    ```shell
+    cd deplpy
+    docker-compose up -d
+    ```
+2. 编译并运行 api、rpc 服务
+   - 运行 rpc 服务
+   ```shell
+    # RPC 订单服务   
+    cd service/order
+    go run order.go -c etc/order.yaml
+   ```
+   ```shell
+    # RPC 库存服务
+    cd service/stock
+    go run stock.go -c etc/stock.yaml
+    ```
+   - 运行 api 服务
+    ```shell
+    # HTTP 
+    cd restful
+    go run order.go -c etc/order.yaml
+    ```
+3. 测试
+
+   ```shell
+   # 创建订单 - ✅成功
+   curl --request POST \
+     --url http://127.0.0.1:8888/order/create \
+     --header 'Accept: */*' \
+     --header 'Accept-Encoding: gzip, deflate, br' \
+     --header 'Connection: keep-alive' \
+     --header 'Content-Type: application/json' \
+     --header 'User-Agent: PostmanRuntime-ApipostRuntime/1.1.0' \
+     --data '{
+       "user_id": 1,
+       "goods_id": 1,
+       "num": 1
+   }'
+   ```
+
+   ```shell
+   # 创建订单 - ❌错误 回滚
+   curl --request POST \
+     --url http://127.0.0.1:8888/order/create \
+     --header 'Accept: */*' \
+     --header 'Accept-Encoding: gzip, deflate, br' \
+     --header 'Connection: keep-alive' \
+     --header 'Content-Type: application/json' \
+     --header 'User-Agent: PostmanRuntime-ApipostRuntime/1.1.0' \
+     --data '{
+       "user_id": 1,
+       "goods_id": 1,
+       "num": 9999
+   }'
+   ```
+
+
+## 四、参考
+1. [dtm-labs/dtm-examples](https://github.com/dtm-labs/dtm-examples)
+2. [gozerodtm](https://github.com/Mikaelemmmm/gozerodtm)
+3. [dtm文档go-zero支持](https://dtm.pub/ref/gozero.html)
+4. [gorm](https://gorm.io/zh_CN/docs/)
