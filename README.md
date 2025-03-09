@@ -81,7 +81,7 @@
 
 ## 四、参考
 - [dtm-labs/dtm-examples](https://github.com/dtm-labs/dtm-examples)
-- [gozerodtm](https://github.com/Mikaelemmmm/gozerodtm)
+- [go-zero对接分布式事务dtm保姆式教程](https://github.com/Mikaelemmmm/gozerodtm)
 - [gorm](https://gorm.io/zh_CN/docs/)
 - [dtm-异常与子事务屏障](https://dtm.pub/practice/barrier.html)
 - [dtm-gozero支持](https://dtm.pub/ref/gozero.html)
